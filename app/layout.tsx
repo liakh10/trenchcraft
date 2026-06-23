@@ -8,6 +8,18 @@ const pixelFont = Press_Start_2P({ subsets: ["latin"], weight: "400" });
 export const metadata: Metadata = {
   title: "TrenchCraft — $TCRAFT",
   description: "Voxel Trench Sandbox on Solana — mine, build, survive.",
+  openGraph: {
+    title: "TrenchCraft — $TCRAFT",
+    description: "A playable voxel world on Solana. Mine, build, survive the trenches.",
+    images: ["/og.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TrenchCraft — $TCRAFT",
+    description: "A playable voxel world on Solana. Mine, build, survive the trenches.",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({
