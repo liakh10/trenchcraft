@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #070a10;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  overflow-x: hidden;
+}
+
+/* ── Crosshair for the game ── */
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 30;
+}
+.crosshair::before,
+.crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+}
+.crosshair::before { left: 50%; top: 2px; width: 2px; height: 18px; transform: translateX(-50%); }
+.crosshair::after { top: 50%; left: 2px; height: 2px; width: 18px; transform: translateY(-50%); }
+
+/* ── Scanlines overlay ── */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 20px #FFB30088, 0 0 50px #FFB30033, 4px 4px 0 #5a3000; }
+  50% { text-shadow: 0 0 30px #FFD700cc, 0 0 70px #FFB30055, 4px 4px 0 #5a3000; }
+}
+
+.animate-blink { animation: blink 1s step-end infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+.wallet-adapter-modal-wrapper { font-family: 'Press Start 2P', monospace !important; }
