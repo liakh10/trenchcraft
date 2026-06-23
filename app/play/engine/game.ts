@@ -3,6 +3,7 @@ import { World } from "./world";
 import { buildOpaqueGeometry, buildWaterGeometry } from "./mesher";
 import { buildAtlasTexture } from "./textures";
 import { Controls } from "./controls";
+import { MobManager } from "./mobs";
 import { HOTBAR, AIR, isSolid } from "./blocks";
 
 const REACH = 6; // how far the player can break/place
@@ -75,6 +76,9 @@ export function createGame(container: HTMLElement): GameHandle {
   );
   highlight.visible = false;
   scene.add(highlight);
+
+  // ── Trencher mobs ──
+  const mobs = new MobManager(scene, world, 18);
 
   // ── Targeting via centre-screen raycast ──
   const raycaster = new THREE.Raycaster();
@@ -164,6 +168,7 @@ export function createGame(container: HTMLElement): GameHandle {
     last = now;
 
     controls.update(dt);
+    mobs.update(dt);
 
     const t = getTarget();
     if (t && controls.locked) {
@@ -191,6 +196,7 @@ export function createGame(container: HTMLElement): GameHandle {
       renderer.domElement.removeEventListener("mousedown", onMouseDown);
       renderer.domElement.removeEventListener("contextmenu", onContext);
       controls.dispose();
+      mobs.dispose();
       opaqueMesh.geometry.dispose();
       waterMesh.geometry.dispose();
       opaqueMat.dispose();

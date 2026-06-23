@@ -40,6 +40,14 @@ export class World {
     return defIsSolid(this.get(x, y, z));
   }
 
+  // Y of the first empty cell above the topmost solid block in column (x,z).
+  surfaceHeight(x: number, z: number): number {
+    for (let y = this.SY - 1; y >= 1; y--) {
+      if (defIsSolid(this.get(x, y, z))) return y + 1;
+    }
+    return 1;
+  }
+
   // ── Procedural generation ──
   generate(seed = 1337): void {
     const h = this.heightField(seed);
